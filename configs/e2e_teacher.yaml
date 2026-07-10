@@ -1,0 +1,5 @@
+model_id: 'Qwen/Qwen2.5-0.5B-Instruct'
+backend: 'transformers'
+batch_size: 1
+backend_kwargs: {}
+annotations_path: 'data/processed/dataset_v99/teacher_annotations.jsonl'

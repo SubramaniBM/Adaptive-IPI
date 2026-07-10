@@ -75,18 +75,34 @@ class TeacherDiagnostician:
 
         logger.info("Querying teacher for failure diagnosis...")
         
-        # TODO: Call self.teacher_client.generate(DIAGNOSTIC_SYSTEM_PROMPT, user_prompt)
-        # For now, we simulate a mock JSON output to maintain the pipeline structure.
+        messages = [
+            {"role": "system", "content": DIAGNOSTIC_SYSTEM_PROMPT},
+            {"role": "user", "content": user_prompt}
+        ]
         
-        mock_diagnosis = {
-            "linguistic_patterns": ["Mock pattern 1"],
-            "likely_failure_causes": ["Mock cause 1"],
-            "recommended_curriculum_focus": ["Mock focus 1"]
-        }
+        response_text = self.teacher_client.generate(messages)
+        
+        # Parse JSON
+        import re
+        json_match = re.search(r'```(?:json)?\s*(.*?)\s*```', response_text, re.DOTALL)
+        if json_match:
+            json_str = json_match.group(1)
+        else:
+            json_str = response_text
+            
+        try:
+            diagnosis = json.loads(json_str)
+        except json.JSONDecodeError:
+            logger.error(f"Failed to parse teacher diagnosis JSON: {response_text}")
+            diagnosis = {
+                "linguistic_patterns": ["Failed to parse patterns"],
+                "likely_failure_causes": ["Failed to parse causes"],
+                "recommended_curriculum_focus": ["Failed to parse focus"]
+            }
 
         # Save diagnosis
         out_path = self.output_dir / "diagnosis.json"
         with open(out_path, "w", encoding="utf-8") as f:
-            json.dump(mock_diagnosis, f, indent=2)
+            json.dump(diagnosis, f, indent=2)
 
         logger.info(f"Diagnosis saved to {out_path}")

@@ -135,9 +135,9 @@ class TeacherAnnotator:
         failed_count = 0
 
         for _, row in tqdm(df.iterrows(), total=len(df), desc="Teacher annotation"):
-            sample_id = row["id"]
-            text = row["text"]
-
+            sample_id = str(row["id"])
+            text = row.get("text", row.get("context", ""))
+            
             try:
                 messages = build_messages(text, system_prompt=self.system_prompt)
                 response = self.backend.generate(

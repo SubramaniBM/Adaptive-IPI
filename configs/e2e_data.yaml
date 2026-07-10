@@ -1,0 +1,3 @@
+processed_dir: 'data/processed'
+teacher_annotations_path: 'data/processed/dataset_v99/teacher_annotations.jsonl'
+seed: 42

@@ -81,7 +81,7 @@ def main() -> None:
     # Teacher annotations path (reuse from Phase 2 + new annotations for generated data)
     teacher_path = None
     if distill_config.get("loss_type") == "kd":
-        teacher_path = _PROJECT_ROOT / "data" / "processed" / "teacher_annotations.jsonl"
+        teacher_path = _PROJECT_ROOT / data_config.get("teacher_annotations_path", "data/processed/teacher_annotations.jsonl")
         if not teacher_path.exists():
             logger.warning("Teacher annotations not found — falling back to CE loss.")
             distill_config["loss_type"] = "ce"

@@ -13,9 +13,10 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
-from src.utils.logging import get_logger
+import json
+from pathlib import Path
 
-logger = get_logger(__name__)
+from src.utils.logging import get_logger
 
 
 def run_inference(
@@ -56,3 +57,51 @@ def run_inference(
         "predicted_label": all_preds,
         "predicted_prob": all_probs,
     })
+
+
+def identify_failures(eval_df: pd.DataFrame, predictions_df: pd.DataFrame, confidence_threshold: float) -> list[dict]:
+    """Identify failures from predictions."""
+    failures = []
+    
+    # Merge or align
+    for i, row in eval_df.iterrows():
+        pred_row = predictions_df.iloc[i]
+        true_label = row["label"]
+        pred_label = pred_row["predicted_label"]
+        prob = pred_row["predicted_prob"]
+        
+        if true_label != pred_label:
+            failure = {
+                "sample_id": row.get("id", f"sample_{i}"),
+                "text": row.get("text", row.get("context", "")),
+                "true_label": int(true_label),
+                "predicted_label": int(pred_label),
+                "probability": float(prob),
+                "attack_family": row.get("attack_family", "N/A"),
+                "attack_position": row.get("attack_position", "N/A"),
+            }
+            failures.append(failure)
+            
+    return failures
+
+
+def generate_failure_report(failures: list[dict], output_dir: Path) -> dict:
+    """Generate a failure report and save to output directory."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    report = {
+        "total_failures": len(failures),
+        "by_failure_type": {
+            "false_positives": sum(1 for f in failures if f["predicted_label"] == 1),
+            "false_negatives": sum(1 for f in failures if f["predicted_label"] == 0),
+        }
+    }
+    
+    with open(output_dir / "failure_report.json", "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2)
+        
+    with open(output_dir / "failures.jsonl", "w", encoding="utf-8") as f:
+        for failure in failures:
+            f.write(json.dumps(failure) + "\n")
+            
+    return report

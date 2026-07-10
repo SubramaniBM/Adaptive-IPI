@@ -1,0 +1,6 @@
+model_name: 'answerdotai/ModernBERT-base'
+num_epochs: 1
+batch_size: 2
+learning_rate: 0.00002
+max_length: 512
+experiments_dir: 'outputs/e2e_experiments'
