@@ -1,0 +1,13 @@
+data:
+  processed_dir: data/processed
+  teacher_annotations_path: data/processed/dataset_v99/teacher_annotations.jsonl
+  seed: 42
+adaptive:
+  failure_analysis:
+    confidence_threshold: 0.7
+  failure_selection:
+    policy: null
+  generation:
+    strategy: null
+  verification:
+    min_text_length: 20

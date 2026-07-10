@@ -1,0 +1,17 @@
+evaluation:
+  metrics:
+  - accuracy
+  - precision
+  - recall
+  - f1
+  - auroc
+  - auprc
+  - ece
+  calibration:
+    n_bins: 15
+  confidence_threshold: 0.5
+  figures_dir: figures
+data:
+  processed_dir: data/processed
+  teacher_annotations_path: data/processed/dataset_v99/teacher_annotations.jsonl
+  seed: 42

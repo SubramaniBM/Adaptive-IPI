@@ -1,0 +1,6 @@
+{
+  "experiment_id": "exp021",
+  "phase": "phase7_evaluate",
+  "description": "Evaluation on test split, checkpoint=/Users/subramanibm/Projects/Adaptive-IPI/outputs/e2e_experiments/exp018/checkpoint/best",
+  "created_at": "2026-07-10T15:44:19.957953"
+}

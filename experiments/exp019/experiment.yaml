@@ -1,0 +1,18 @@
+data:
+  processed_dir: data/processed
+  teacher_annotations_path: data/processed/dataset_v99/teacher_annotations.jsonl
+  seed: 42
+adaptive:
+  failure_analysis:
+    confidence_threshold: 0.7
+  failure_selection:
+    policy: null
+  generation:
+    strategy: targeted_weakness
+    total_curriculum_samples: 100
+    allocation_strategy: proportional
+    top_k_multiplier: 5
+    benign_ratio: 0.5
+    temperature: 0.7
+  verification:
+    min_text_length: 20

@@ -1,0 +1,7 @@
+{
+  "total_failures": 3,
+  "by_failure_type": {
+    "false_positives": 1,
+    "false_negatives": 2
+  }
+}
