@@ -1,0 +1,6 @@
+# Dataset Configuration
+task: email
+target_attack_samples: 1500
+seed: 42
+processed_dir: "data/processed"
+teacher_annotations_path: "data/processed/teacher_annotations.jsonl"

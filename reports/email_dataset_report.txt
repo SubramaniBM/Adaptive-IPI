@@ -1,0 +1,169 @@
+=========================
+EMAIL DATASET REPORT
+=========================
+
+Train Samples
+Attack : 11250
+Benign : 50
+
+Test Samples
+Attack : 11250
+Benign : 50
+
+Attack Families
+Language Translation-0             : 300
+Language Translation-1             : 300
+Language Translation-2             : 300
+Language Translation-3             : 300
+Language Translation-4             : 300
+Information Retrieval-0            : 150
+Information Retrieval-1            : 150
+Information Retrieval-2            : 150
+Information Retrieval-3            : 150
+Information Retrieval-4            : 150
+Content Creation-0                 : 150
+Content Creation-1                 : 150
+Content Creation-2                 : 150
+Content Creation-3                 : 150
+Content Creation-4                 : 150
+Learning and Tutoring-0            : 150
+Learning and Tutoring-1            : 150
+Learning and Tutoring-2            : 150
+Learning and Tutoring-3            : 150
+Learning and Tutoring-4            : 150
+Programming Help-0                 : 150
+Programming Help-1                 : 150
+Programming Help-2                 : 150
+Programming Help-3                 : 150
+Programming Help-4                 : 150
+Alphanumeric Substitution-0        : 150
+Alphanumeric Substitution-1        : 150
+Alphanumeric Substitution-2        : 150
+Alphanumeric Substitution-3        : 150
+Alphanumeric Substitution-4        : 150
+Homophonic Substitution-0          : 150
+Homophonic Substitution-1          : 150
+Homophonic Substitution-2          : 150
+Homophonic Substitution-3          : 150
+Homophonic Substitution-4          : 150
+Misspelling Intentionally-0        : 150
+Misspelling Intentionally-1        : 150
+Misspelling Intentionally-2        : 150
+Misspelling Intentionally-3        : 150
+Misspelling Intentionally-4        : 150
+Anagramming-0                      : 150
+Anagramming-1                      : 150
+Anagramming-2                      : 150
+Anagramming-3                      : 150
+Anagramming-4                      : 150
+Space Removal & Grouping-0         : 150
+Space Removal & Grouping-1         : 150
+Space Removal & Grouping-2         : 150
+Space Removal & Grouping-3         : 150
+Space Removal & Grouping-4         : 150
+Instruction-0                      : 150
+Instruction-1                      : 150
+Instruction-2                      : 150
+Instruction-3                      : 150
+Instruction-4                      : 150
+Social Interaction-0               : 150
+Social Interaction-1               : 150
+Social Interaction-2               : 150
+Social Interaction-3               : 150
+Social Interaction-4               : 150
+Persuasion-0                       : 150
+Persuasion-1                       : 150
+Persuasion-2                       : 150
+Persuasion-3                       : 150
+Persuasion-4                       : 150
+Clickbait-0                        : 150
+Clickbait-1                        : 150
+Clickbait-2                        : 150
+Clickbait-3                        : 150
+Clickbait-4                        : 150
+Malware Distribution-0             : 150
+Malware Distribution-1             : 150
+Malware Distribution-2             : 150
+Malware Distribution-3             : 150
+Malware Distribution-4             : 150
+Task Automation-0                  : 150
+Task Automation-1                  : 150
+Task Automation-2                  : 150
+Task Automation-3                  : 150
+Task Automation-4                  : 150
+Business Intelligence-0            : 150
+Business Intelligence-1            : 150
+Business Intelligence-2            : 150
+Business Intelligence-3            : 150
+Business Intelligence-4            : 150
+Conversational Agent-0             : 150
+Conversational Agent-1             : 150
+Conversational Agent-2             : 150
+Conversational Agent-3             : 150
+Conversational Agent-4             : 150
+Research Assistance-0              : 150
+Research Assistance-1              : 150
+Research Assistance-2              : 150
+Research Assistance-3              : 150
+Research Assistance-4              : 150
+Sentiment Analysis-0               : 150
+Sentiment Analysis-1               : 150
+Sentiment Analysis-2               : 150
+Sentiment Analysis-3               : 150
+Sentiment Analysis-4               : 150
+Substitution Ciphers-0             : 150
+Substitution Ciphers-1             : 150
+Substitution Ciphers-2             : 150
+Substitution Ciphers-3             : 150
+Substitution Ciphers-4             : 150
+Base Encoding-0                    : 150
+Base Encoding-1                    : 150
+Base Encoding-2                    : 150
+Base Encoding-3                    : 150
+Base Encoding-4                    : 150
+Reverse Text-0                     : 150
+Reverse Text-1                     : 150
+Reverse Text-2                     : 150
+Reverse Text-3                     : 150
+Reverse Text-4                     : 150
+Emoji Substitution-0               : 150
+Emoji Substitution-1               : 150
+Emoji Substitution-2               : 150
+Emoji Substitution-3               : 150
+Emoji Substitution-4               : 150
+Information Dissemination-0        : 150
+Information Dissemination-1        : 150
+Information Dissemination-2        : 150
+Information Dissemination-3        : 150
+Information Dissemination-4        : 150
+Marketing & Advertising-0          : 150
+Marketing & Advertising-1          : 150
+Marketing & Advertising-2          : 150
+Marketing & Advertising-3          : 150
+Marketing & Advertising-4          : 150
+Entertainment-0                    : 150
+Entertainment-1                    : 150
+Entertainment-2                    : 150
+Entertainment-3                    : 150
+Entertainment-4                    : 150
+Scams & Fraud-0                    : 150
+Scams & Fraud-1                    : 150
+Scams & Fraud-2                    : 150
+Scams & Fraud-3                    : 150
+Scams & Fraud-4                    : 150
+Misinformation & Propaganda-0      : 150
+Misinformation & Propaganda-1      : 150
+Misinformation & Propaganda-2      : 150
+Misinformation & Propaganda-3      : 150
+Misinformation & Propaganda-4      : 150
+
+Attack Positions
+end       : 7500
+start     : 7500
+middle    : 7500
+
+Text Length (Characters)
+Average length : 544.4
+Median length  : 505
+Maximum length : 4063
+Minimum length : 160

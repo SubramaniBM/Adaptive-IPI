@@ -1,0 +1,24 @@
+# ═══════════════════════════════════════════════════════════════════════
+# configs/teacher.yaml — Teacher model configuration
+# ═══════════════════════════════════════════════════════════════════════
+
+model_id: "Qwen/Qwen3-32B-Instruct"
+
+# Inference backend: "vllm", "transformers", or "api"
+backend: "vllm"
+
+# Backend-specific kwargs passed to the backend constructor
+backend_kwargs:
+  tensor_parallel_size: 1
+  # gpu_memory_utilization: 0.9
+
+# Generation parameters
+temperature: 0.0          # Greedy decoding for deterministic annotations
+max_tokens: 1024
+batch_size: 8             # Batch size for vLLM batching
+
+# Output
+annotations_path: "data/processed/teacher_annotations.jsonl"
+
+# Optional: override system prompt (set to null to use default)
+system_prompt: null

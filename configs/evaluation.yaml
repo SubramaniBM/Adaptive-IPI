@@ -1,0 +1,23 @@
+# ═══════════════════════════════════════════════════════════════════════
+# configs/evaluation.yaml — Evaluation configuration
+# ═══════════════════════════════════════════════════════════════════════
+
+# ── Metrics to compute ────────────────────────────────────────────────
+metrics:
+  - accuracy
+  - precision
+  - recall
+  - f1
+  - auroc
+  - auprc
+  - ece           # Expected Calibration Error (Change #6)
+
+# ── Calibration ───────────────────────────────────────────────────────
+calibration:
+  n_bins: 15      # Number of bins for ECE and reliability diagram
+
+# ── Confidence threshold ─────────────────────────────────────────────
+confidence_threshold: 0.5   # For binary prediction from probabilities
+
+# ── Output ────────────────────────────────────────────────────────────
+figures_dir: "figures"

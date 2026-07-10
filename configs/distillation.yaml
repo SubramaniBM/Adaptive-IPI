@@ -1,0 +1,25 @@
+# ═══════════════════════════════════════════════════════════════════════
+# configs/distillation.yaml — Knowledge distillation configuration
+# ═══════════════════════════════════════════════════════════════════════
+
+# ── Loss function ─────────────────────────────────────────────────────
+# Options: "ce" (cross-entropy baseline), "kd" (knowledge distillation)
+loss_type: "kd"
+
+# ── KD parameters (RESEARCH DECISIONS — determine empirically) ───────
+# These values must be set by the researcher before running KD.
+# They are intentionally left as null to prevent accidental use
+# of arbitrary defaults.
+#
+# temperature: Softmax temperature (τ) for softening logits.
+#   Higher values → softer distributions → more "dark knowledge".
+#   Typical range: 1.0–20.0
+#
+# alpha: Weighting between distillation and hard-label loss.
+#   α = 1.0 → pure distillation
+#   α = 0.0 → pure cross-entropy
+#   Typical range: 0.1–0.9
+#
+# UNCOMMENT and set these before running Phase 3 with loss_type: "kd"
+temperature: 4.0    # RESEARCH DECISION — tune empirically
+alpha: 0.7          # RESEARCH DECISION — tune empirically

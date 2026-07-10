@@ -1,0 +1,89 @@
+{
+    "dataset_version": "dataset_v0",
+    "total_samples": 11203,
+    "train_samples": 1696,
+    "validation_samples": 1588,
+    "test_samples": 7919,
+    "checks": {
+        "context_overlap": {
+            "name": "zero_context_overlap",
+            "train_unique_contexts": 1387,
+            "validation_unique_contexts": 1508,
+            "test_unique_contexts": 7607,
+            "train_val_overlap": 0,
+            "train_test_overlap": 0,
+            "val_test_overlap": 0,
+            "passed": true
+        },
+        "duplicate_ids": {
+            "name": "zero_duplicate_ids",
+            "duplicate_count": 0,
+            "passed": true
+        },
+        "duplicate_pairs": {
+            "name": "zero_duplicate_context_intent_pairs",
+            "duplicate_count": 0,
+            "passed": true
+        },
+        "binary_labels": {
+            "name": "binary_labels",
+            "invalid_count": 0,
+            "unique_labels": [
+                0,
+                1
+            ],
+            "passed": true
+        },
+        "attack_family_coverage": {
+            "name": "attack_family_coverage",
+            "unique_families": 29,
+            "families": [
+                "Alphanumeric Substitution",
+                "Anagramming",
+                "Base Encoding",
+                "Business Intelligence",
+                "Clickbait",
+                "Content Creation",
+                "Conversational Agent",
+                "Emoji Substitution",
+                "Entertainment",
+                "Homophonic Substitution",
+                "Information Dissemination",
+                "Information Retrieval",
+                "Instruction",
+                "Language Translation",
+                "Learning and Tutoring",
+                "Malware Distribution",
+                "Marketing & Advertising",
+                "Misinformation & Propaganda",
+                "Misspelling Intentionally",
+                "Persuasion",
+                "Programming Help",
+                "Research Assistance",
+                "Reverse Text",
+                "Scams & Fraud",
+                "Sentiment Analysis",
+                "Social Interaction",
+                "Space Removal & Grouping",
+                "Substitution Ciphers",
+                "Task Automation"
+            ],
+            "passed": true
+        },
+        "attack_position_coverage": {
+            "name": "attack_position_coverage",
+            "positions_found": [
+                "end",
+                "middle",
+                "start"
+            ],
+            "positions_expected": [
+                "end",
+                "middle",
+                "start"
+            ],
+            "passed": true
+        }
+    },
+    "passed": true
+}

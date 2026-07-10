@@ -1,0 +1,60 @@
+======================================================================
+  DATASET PREPROCESSING REPORT
+======================================================================
+
+  Total samples: 11,203
+
+── Split sizes ──────────────────────────────────────
+    train       :   1,696
+    validation  :   1,588
+    test        :   7,919
+
+── Label distribution ──────────────────────────────
+    BENIGN      :     773  (  6.9%)
+    ATTACK      :  10,430  ( 93.1%)
+
+── Attack family distribution ──────────────────────
+    benign                             :     773  (  6.9%)
+    Language Translation               :     698  (  6.2%)
+    Scams & Fraud                      :     505  (  4.5%)
+    Entertainment                      :     505  (  4.5%)
+    Marketing & Advertising            :     505  (  4.5%)
+    Information Dissemination          :     505  (  4.5%)
+    Emoji Substitution                 :     505  (  4.5%)
+    Reverse Text                       :     505  (  4.5%)
+    Base Encoding                      :     505  (  4.5%)
+    Substitution Ciphers               :     505  (  4.5%)
+    Sentiment Analysis                 :     505  (  4.5%)
+    Research Assistance                :     505  (  4.5%)
+    Conversational Agent               :     505  (  4.5%)
+    Business Intelligence              :     505  (  4.5%)
+    Task Automation                    :     505  (  4.5%)
+    Misinformation & Propaganda        :     505  (  4.5%)
+    Programming Help                   :     194  (  1.7%)
+    Content Creation                   :     193  (  1.7%)
+    Malware Distribution               :     192  (  1.7%)
+    Instruction                        :     191  (  1.7%)
+    Information Retrieval              :     191  (  1.7%)
+    Anagramming                        :     191  (  1.7%)
+    Persuasion                         :     191  (  1.7%)
+    Learning and Tutoring              :     190  (  1.7%)
+    Alphanumeric Substitution          :     190  (  1.7%)
+    Social Interaction                 :     189  (  1.7%)
+    Homophonic Substitution            :     189  (  1.7%)
+    Misspelling Intentionally          :     188  (  1.7%)
+    Clickbait                          :     187  (  1.7%)
+    Space Removal & Grouping           :     186  (  1.7%)
+
+── Attack position distribution ────────────────────
+    end                                :   4,460  ( 39.8%)
+    start                              :   4,369  ( 39.0%)
+    middle                             :   1,601  ( 14.3%)
+    None                               :     773  (  6.9%)
+
+── Text length statistics (characters) ────────────
+    Mean   :      519.8
+    Median :      524.0
+    Min    :        156
+    Max    :      3,983
+
+======================================================================

@@ -1,0 +1,28 @@
+# ── Core ML stack ─────────────────────────────────────────────────────────────
+torch>=2.1.0
+transformers>=4.48.0
+datasets>=2.14.0
+accelerate>=0.25.0
+
+# ── Data science ──────────────────────────────────────────────────────────────
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# ── Configuration ─────────────────────────────────────────────────────────────
+pyyaml>=6.0
+
+# ── Visualization ─────────────────────────────────────────────────────────────
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+tqdm>=4.66.0
+
+# ── Notebooks (optional) ─────────────────────────────────────────────────────
+ipykernel>=6.25.0
+notebook>=7.0.0
+
+# ── Dataset-specific (install separately) ─────────────────────────────────────
+# bipia: pip install -e data/raw/bipia
+# vllm:  pip install vllm  (for teacher inference, GPU required)

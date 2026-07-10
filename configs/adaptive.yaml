@@ -1,0 +1,31 @@
+# ═══════════════════════════════════════════════════════════════════════
+# configs/adaptive.yaml — Adaptive hard-negative curriculum configuration
+# ═══════════════════════════════════════════════════════════════════════
+
+# ── Failure analysis (Phase 4) ────────────────────────────────────────
+failure_analysis:
+  confidence_threshold: 0.7   # Below this = low-confidence correct
+
+# ── Failure selection (Phase 5a — RESEARCH DECISION) ──────────────────
+# The selection policy determines which failures to target.
+# Implement in src/adaptive/failure_selection.py
+failure_selection:
+  # Placeholder — configure after determining the policy
+  policy: null
+
+# ── Hard-negative generation (Phase 5b — RESEARCH DECISION) ──────────
+# The generation strategy is the core novelty.
+# Implement in src/adaptive/hard_negative_generation.py
+generation:
+  # Placeholder — configure after determining the strategy
+  strategy: null
+  # num_samples_per_failure: null
+  # temperature: null
+
+# ── Verification (Phase 5c) ──────────────────────────────────────────
+verification:
+  min_text_length: 20
+
+# ── Dataset versioning ────────────────────────────────────────────────
+# Each augmentation round creates dataset_v{N+1}
+# The source version is never modified (immutable datasets)

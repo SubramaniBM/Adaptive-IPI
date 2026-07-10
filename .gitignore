@@ -1,0 +1,30 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Environments
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Project caches and logs
+logs/
+checkpoints/
+.vscode/
+.DS_Store
+
+# Temporary outputs and runtime generated files
+outputs/
+reports/audit_data.json
+
+# If data folder has very large raw data, usually we exclude it, but we need metadata.
+# The prompt says "Keep all source code, configuration files, documentation, reports, and the frozen dataset metadata required to reproduce the project."
+# Our dataset_v0 is processed and frozen. We'll commit data/processed/dataset_v0/ and data/splits/
+# We'll ignore raw huggingface caches or raw data if any.
+data/raw/
+data/generated/

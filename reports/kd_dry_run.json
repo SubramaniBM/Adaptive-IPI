@@ -1,0 +1,15 @@
+{
+    "task": "KD Dry Run",
+    "elapsed_seconds": 2.53,
+    "samples_used": 5,
+    "student_model": "answerdotai/ModernBERT-base",
+    "results": {
+        "ce_loss": 0.773395,
+        "kd_loss": 3.499699,
+        "temperature": 4.0,
+        "alpha": 0.7,
+        "gradients_computed": true,
+        "teacher_probs_present": true
+    },
+    "passed": true
+}

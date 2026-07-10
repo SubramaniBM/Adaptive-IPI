@@ -1,0 +1,8 @@
+task: email
+positions:
+- start
+- middle
+- end
+balance: false
+seed: 42
+benchmark_version: official-bipia
