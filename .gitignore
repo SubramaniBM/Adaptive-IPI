@@ -26,5 +26,6 @@ reports/audit_data.json
 # The prompt says "Keep all source code, configuration files, documentation, reports, and the frozen dataset metadata required to reproduce the project."
 # Our dataset_v0 is processed and frozen. We'll commit data/processed/dataset_v0/ and data/splits/
 # We'll ignore raw huggingface caches or raw data if any.
-data/raw/
+data/raw/*
+!data/raw/bipia
 data/generated/

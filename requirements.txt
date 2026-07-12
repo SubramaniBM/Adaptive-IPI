@@ -24,5 +24,5 @@ ipykernel>=6.25.0
 notebook>=7.0.0
 
 # ── Dataset-specific (install separately) ─────────────────────────────────────
-# bipia: pip install -e data/raw/bipia
-# vllm:  pip install vllm  (for teacher inference, GPU required)
+-e data/raw/bipia
+vllm

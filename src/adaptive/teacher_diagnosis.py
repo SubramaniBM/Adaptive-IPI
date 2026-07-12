@@ -16,7 +16,6 @@ from src.utils.logging import get_logger
 logger = get_logger(__name__)
 
 
-# TODO: Researcher must implement the exact prompt formulation.
 DIAGNOSTIC_SYSTEM_PROMPT = """\
 You are an expert cybersecurity diagnostic analyst.
 Your task is to analyze the failure profile and representative failures of an
@@ -31,7 +30,6 @@ You must output your diagnosis in the following exact JSON schema:
 }
 """
 
-# TODO: Researcher must implement the exact prompt formulation.
 DIAGNOSTIC_USER_PROMPT_TEMPLATE = """\
 FAILURE PROFILE:
 {profile_json}
@@ -67,7 +65,6 @@ class TeacherDiagnostician:
                 failures.append(json.loads(line))
 
         # Format prompt
-        # TODO: Implement full prompt templating logic
         user_prompt = DIAGNOSTIC_USER_PROMPT_TEMPLATE.format(
             profile_json=json.dumps(profile, indent=2),
             failures_json=json.dumps(failures, indent=2)
