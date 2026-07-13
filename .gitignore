@@ -29,3 +29,10 @@ reports/audit_data.json
 data/raw/*
 !data/raw/bipia
 data/generated/
+
+# Generated evaluation and analysis data
+experiments/
+data/processed/dataset_v[1-9]*/
+data/processed/teacher_annotations.jsonl
+reports/ablation_study/
+reports/post_experiment_analysis/
