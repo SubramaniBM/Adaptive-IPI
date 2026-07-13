@@ -51,6 +51,10 @@ def main() -> None:
     parser.add_argument(
         "--dataset-version", type=int, default=0,
     )
+    parser.add_argument(
+        "--force", action="store_true",
+        help="Force re-run even if already completed.",
+    )
     args = parser.parse_args()
 
     # Setup
@@ -85,7 +89,7 @@ def main() -> None:
 
     # Teacher annotations (for KD)
     teacher_path = None
-    if distill_config.get("loss_type") == "kd":
+    if distill_config.get("loss_type") in ["kd", "cw"]:
         teacher_path = _PROJECT_ROOT / data_config.get(
             "teacher_annotations_path",
             "data/processed/teacher_annotations.jsonl",
@@ -95,19 +99,48 @@ def main() -> None:
             logger.error("Run Phase 2 first, or use --loss-type ce for baseline.")
             sys.exit(1)
 
-    # Init experiment (Change #5)
-    full_config = {
-        "student": student_config,
-        "distillation": distill_config,
-        "data": data_config,
-        "dataset_version": args.dataset_version,
-    }
-    exp_dir = init_experiment(
-        experiments_dir,
-        config=full_config,
-        phase="phase3_distill",
-        description=f"Initial distillation with loss={distill_config.get('loss_type')}",
-    )
+    # Check for existing experiments to resume or skip
+    exp_dirs = sorted(experiments_dir.glob("exp*"))
+    exp_dir = None
+    resume_from = None
+
+    if exp_dirs:
+        latest_exp = exp_dirs[-1]
+        metadata_path = latest_exp / "metadata.json"
+        is_same_version = False
+        if metadata_path.exists():
+            import json
+            try:
+                with open(metadata_path) as f:
+                    meta = json.load(f)
+                    if meta.get("config", {}).get("dataset_version") == args.dataset_version and meta.get("phase") == "phase3_distill":
+                        is_same_version = True
+            except:
+                pass
+
+        if is_same_version and not args.force:
+            if (latest_exp / "checkpoint" / "final").exists():
+                logger.info(f"Phase 3 already completed for dataset version {args.dataset_version} in {latest_exp}. Skipping.")
+                sys.exit(0)
+            elif (latest_exp / "checkpoint" / "latest").exists():
+                logger.info(f"Found incomplete Phase 3 in {latest_exp}. Resuming...")
+                exp_dir = latest_exp
+                resume_from = latest_exp / "checkpoint" / "latest"
+
+    if exp_dir is None:
+        # Init experiment (Change #5)
+        full_config = {
+            "student": student_config,
+            "distillation": distill_config,
+            "data": data_config,
+            "dataset_version": args.dataset_version,
+        }
+        exp_dir = init_experiment(
+            experiments_dir,
+            config=full_config,
+            phase="phase3_distill",
+            description=f"Initial distillation with loss={distill_config.get('loss_type')}",
+        )
 
     # Run training
     final_state = run_training(

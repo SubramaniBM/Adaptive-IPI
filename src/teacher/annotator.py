@@ -11,7 +11,12 @@ Stores rich annotations per Change #7:
     id, teacher_prediction, teacher_probs, teacher_entropy, teacher_reasoning
 """
 
+import csv
 import dataclasses
+import signal
+import sys
+import time
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional, Union
 
@@ -68,6 +73,15 @@ class TeacherAnnotator:
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.system_prompt = system_prompt
+        self.stop_requested = False
+
+        # Register signal handlers for graceful shutdown
+        signal.signal(signal.SIGINT, self._signal_handler)
+        signal.signal(signal.SIGTERM, self._signal_handler)
+
+    def _signal_handler(self, sig, frame):
+        logger.info(f"\nCaught signal {sig}, initiating graceful shutdown...")
+        self.stop_requested = True
 
     def annotate(
         self,
@@ -103,6 +117,8 @@ class TeacherAnnotator:
 
         # Filter to unannotated samples
         pending_df = df[~df["id"].isin(completed_ids)]
+        print(f"\nLoaded {len(completed_ids)} existing annotations.")
+        print(f"{len(pending_df)} remaining.")
         logger.info(f"Annotating {len(pending_df):,} samples (batch_size={self.batch_size})")
 
         if len(pending_df) == 0:
@@ -126,6 +142,21 @@ class TeacherAnnotator:
 
         return all_annotations
 
+    def _log_error(self, sample_id: str, exception: str, raw_response: str, attempt: int):
+        error_path = self.output_path.parent / "annotation_errors.csv"
+        file_exists = error_path.exists()
+        with open(error_path, "a", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            if not file_exists:
+                writer.writerow(["sample_id", "exception", "raw_response", "timestamp", "attempt"])
+            writer.writerow([
+                sample_id, 
+                str(exception), 
+                raw_response, 
+                datetime.now().isoformat(), 
+                attempt
+            ])
+
     def _annotate_sequential(
         self,
         df: pd.DataFrame,
@@ -133,31 +164,82 @@ class TeacherAnnotator:
         """Annotate samples one at a time with per-sample checkpointing."""
         annotations: list[TeacherAnnotation] = []
         failed_count = 0
+        skipped_count = 0
+        retries = 0
+        
+        buffer = []
+        flush_every = 10
+        start_time = time.time()
 
-        for _, row in tqdm(df.iterrows(), total=len(df), desc="Teacher annotation"):
+        for idx, (_, row) in enumerate(df.iterrows()):
+            if self.stop_requested:
+                logger.info("Stopping annotation loop cleanly...")
+                break
+                
             sample_id = str(row["id"])
             text = row.get("text", row.get("context", ""))
             
-            try:
-                messages = build_messages(text, system_prompt=self.system_prompt)
-                response = self.backend.generate(
-                    messages,
-                    temperature=self.temperature,
-                    max_tokens=self.max_tokens,
-                )
-                annotation = parse_teacher_response(sample_id, response)
-
-                if annotation is not None:
-                    annotations.append(annotation)
-                    # Checkpoint: append immediately
-                    append_jsonl(dataclasses.asdict(annotation), self.output_path)
-                else:
-                    failed_count += 1
-                    logger.warning(f"Failed to parse response for sample {sample_id}")
-
-            except Exception as exc:
+            annotation = None
+            for attempt in range(2):
+                try:
+                    messages = build_messages(text, system_prompt=self.system_prompt)
+                    response = self.backend.generate(
+                        messages,
+                        temperature=self.temperature,
+                        max_tokens=self.max_tokens,
+                    )
+                    annotation = parse_teacher_response(sample_id, response)
+                    
+                    if annotation is not None:
+                        if attempt == 1:
+                            retries += 1
+                        break
+                        
+                except Exception as exc:
+                    if attempt == 0:
+                        logger.warning(f"Error on attempt 1 for {sample_id}: {exc}. Retrying once...")
+                    else:
+                        logger.error(f"Error annotating sample {sample_id} on retry: {exc}")
+                        self._log_error(sample_id, str(exc), response if 'response' in locals() else "", attempt+1)
+            
+            if annotation is not None:
+                annotations.append(annotation)
+                buffer.append(dataclasses.asdict(annotation))
+            else:
                 failed_count += 1
-                logger.error(f"Error annotating sample {sample_id}: {exc}")
+                skipped_count += 1
+                
+            # Checkpoint every N=10 or at end
+            if len(buffer) >= flush_every or (idx == len(df) - 1):
+                for item in buffer:
+                    append_jsonl(item, self.output_path)
+                buffer.clear()
+                
+            # Progress Reporting every 25 samples
+            if (idx + 1) % 25 == 0 or (idx == len(df) - 1):
+                elapsed = time.time() - start_time
+                avg_time = elapsed / (idx + 1)
+                remaining = len(df) - (idx + 1)
+                eta = avg_time * remaining
+                
+                print(f"\n--- Teacher Annotation ---")
+                print(f"Completed: {idx + 1}")
+                print(f"Remaining: {remaining}")
+                print(f"Retries:   {retries}")
+                print(f"Skipped:   {skipped_count}")
+                print(f"ETA:       {eta/60:.1f} minutes")
+                print(f"Avg/sample: {avg_time:.2f} seconds")
+                print(f"--------------------------")
+
+        # Final flush just in case (stop_requested break)
+        if buffer:
+            for item in buffer:
+                append_jsonl(item, self.output_path)
+            buffer.clear()
+            
+        if self.stop_requested:
+            print(f"\nPipeline safely paused. Run the script again to resume from sample {idx + 1}.")
+            sys.exit(0)
 
         return annotations, failed_count
 

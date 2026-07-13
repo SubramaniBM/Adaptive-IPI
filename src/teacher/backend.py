@@ -197,6 +197,56 @@ class TransformersBackend(BaseTeacherBackend):
         ]
 
 
+class OllamaBackend(BaseTeacherBackend):
+    """Teacher inference via local Ollama API."""
+
+    def __init__(self, model_id: str, **kwargs: Any) -> None:
+        self.model_id = model_id
+        self.base_url = kwargs.get("base_url", "http://localhost:11434/api/chat")
+
+    def generate(
+        self,
+        messages: list[dict[str, str]],
+        temperature: float = 0.0,
+        max_tokens: int = 1024,
+    ) -> str:
+        import requests
+        payload = {
+            "model": self.model_id,
+            "messages": messages,
+            "stream": False,
+            "options": {
+                "temperature": temperature,
+                "num_predict": max_tokens
+            }
+        }
+        import concurrent.futures
+        
+        def _make_request():
+            response = requests.post(self.base_url, json=payload, timeout=120)
+            response.raise_for_status()
+            return response.json()["message"]["content"]
+            
+        executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        future = executor.submit(_make_request)
+        try:
+            return future.result(timeout=130)
+        except concurrent.futures.TimeoutError:
+            # Do NOT shutdown the executor because it will block forever
+            raise TimeoutError("Ollama API completely hung (strict wall-clock timeout exceeded).")
+
+    def generate_batch(
+        self,
+        batch_messages: list[list[dict[str, str]]],
+        temperature: float = 0.0,
+        max_tokens: int = 1024,
+    ) -> list[str]:
+        return [
+            self.generate(messages, temperature=temperature, max_tokens=max_tokens)
+            for messages in batch_messages
+        ]
+
+
 def create_backend(
     backend_type: str,
     model_id: str,
@@ -205,7 +255,7 @@ def create_backend(
     """Factory function to create a teacher inference backend.
 
     Args:
-        backend_type: One of "vllm", "transformers", "api".
+        backend_type: One of "vllm", "transformers", "api", "ollama".
         model_id: HuggingFace model identifier.
         **kwargs: Backend-specific arguments.
 
@@ -221,6 +271,8 @@ def create_backend(
         return VLLMBackend(model_id, **kwargs)
     elif backend_type == TeacherBackend.TRANSFORMERS.value:
         return TransformersBackend(model_id, **kwargs)
+    elif backend_type == "ollama":
+        return OllamaBackend(model_id, **kwargs)
     elif backend_type == TeacherBackend.API.value:
         raise NotImplementedError(
             "API backend is not yet implemented. "
@@ -229,5 +281,5 @@ def create_backend(
     else:
         raise ValueError(
             f"Unsupported backend type: {backend_type!r}. "
-            f"Supported: {[b.value for b in TeacherBackend]}"
+            f"Supported: {[b.value for b in TeacherBackend]} + ['ollama']"
         )

@@ -133,6 +133,7 @@ class BestModelCallback(TrainingCallback):
         self.mode = mode
         self.best_value: float = float("-inf") if mode == "max" else float("inf")
         self.best_epoch: int = -1
+        self.best_metrics: dict[str, float] = {}
         self.should_save: bool = False
 
     def on_epoch_end(self, state: TrainingState) -> None:
@@ -146,12 +147,14 @@ class BestModelCallback(TrainingCallback):
         if self.mode == "max" and current > self.best_value:
             self.best_value = current
             self.best_epoch = state.epoch
+            self.best_metrics = state.eval_metrics.copy()
             self.should_save = True
             logger.info(f"  ★ New best {self.monitor}: {current:.4f} (epoch {state.epoch})")
 
         elif self.mode == "min" and current < self.best_value:
             self.best_value = current
             self.best_epoch = state.epoch
+            self.best_metrics = state.eval_metrics.copy()
             self.should_save = True
             logger.info(f"  ★ New best {self.monitor}: {current:.4f} (epoch {state.epoch})")
 

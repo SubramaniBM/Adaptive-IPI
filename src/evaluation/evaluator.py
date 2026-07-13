@@ -61,6 +61,7 @@ def evaluate_model(
 
     result = compute_metrics(y_true, y_pred, y_prob)
     result.ece = compute_ece(y_true, y_prob)
+    eval_loss = predictions_df.attrs.get("eval_loss", 0.0)
 
     return {
         "accuracy": result.accuracy,
@@ -70,6 +71,7 @@ def evaluate_model(
         "auroc": result.auroc,
         "auprc": result.auprc,
         "ece": result.ece,
+        "eval_loss": eval_loss,
     }
 
 

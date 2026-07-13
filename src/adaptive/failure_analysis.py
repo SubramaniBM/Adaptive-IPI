@@ -37,6 +37,8 @@ def run_inference(
     model.eval()
     all_preds = []
     all_probs = []
+    total_loss = 0.0
+    total_samples = 0
 
     with torch.no_grad():
         for batch in dataloader:
@@ -52,11 +54,19 @@ def run_inference(
             all_preds.extend(preds.cpu().numpy().tolist())
             # Probability of the positive class (attack)
             all_probs.extend(probs[:, 1].cpu().numpy().tolist())
+            
+            # Compute loss
+            labels = batch["labels"].to(device)
+            loss = F.cross_entropy(logits, labels, reduction="sum")
+            total_loss += loss.item()
+            total_samples += labels.size(0)
 
-    return pd.DataFrame({
+    df = pd.DataFrame({
         "predicted_label": all_preds,
         "predicted_prob": all_probs,
     })
+    df.attrs["eval_loss"] = total_loss / max(total_samples, 1)
+    return df
 
 
 def identify_failures(eval_df: pd.DataFrame, predictions_df: pd.DataFrame, confidence_threshold: float) -> list[dict]:

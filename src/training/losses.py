@@ -7,6 +7,7 @@ Implements:
     - Standard cross-entropy loss (baseline)
     - Knowledge distillation loss (KL divergence + CE)
     - Composite loss (configurable weighting)
+    - Confidence Weighted loss (weighted by teacher confidence)
 
 NOTE: The KD temperature (τ) and alpha (α) weighting are research
 decisions. They are exposed as configurable parameters, not hardcoded.
@@ -49,7 +50,7 @@ class CrossEntropyLoss(nn.Module):
 class DistillationLoss(nn.Module):
     """Knowledge distillation loss combining KL divergence and cross-entropy.
 
-    Loss = α * KL(softened_student || softened_teacher) * T²
+    Loss = α * KL(softened_student || softened_teacher)
          + (1 - α) * CE(student, hard_labels)
 
     where T is the temperature for softmax softening and α controls
@@ -116,7 +117,7 @@ class DistillationLoss(nn.Module):
         soft_teacher = F.softmax(teacher_logits / self.temperature, dim=-1)
 
         # KL divergence loss (scaled by T²)
-        distill_loss = self.kl(soft_student, soft_teacher) * (self.temperature ** 2)
+        distill_loss = self.kl(soft_student, soft_teacher)
 
         # Hard-label cross-entropy loss
         ce_loss = self.ce(student_logits, labels)
@@ -125,6 +126,42 @@ class DistillationLoss(nn.Module):
         total_loss = self.alpha * distill_loss + (1.0 - self.alpha) * ce_loss
 
         return total_loss
+
+
+class ConfidenceWeightedLoss(nn.Module):
+    """Cross-entropy loss weighted by teacher confidence.
+
+    Loss = CE(student, hard_labels) * max(teacher_probs)
+    """
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.ce = nn.CrossEntropyLoss(reduction='none')
+
+    def forward(
+        self,
+        student_logits: torch.Tensor,
+        labels: torch.Tensor,
+        teacher_probs: torch.Tensor,
+        **kwargs,
+    ) -> torch.Tensor:
+        """Compute the confidence-weighted loss.
+
+        Args:
+            student_logits: Student model output logits, shape (B, num_classes).
+            labels: Ground-truth hard labels, shape (B,).
+            teacher_probs: Teacher probability distribution, shape (B, num_classes).
+
+        Returns:
+            Scalar loss tensor (batch mean).
+        """
+        ce_loss = self.ce(student_logits, labels)
+        
+        # Weight by teacher confidence (max probability)
+        weights, _ = torch.max(teacher_probs, dim=-1)
+        
+        weighted_loss = ce_loss * weights
+        return weighted_loss.mean()
 
 
 def create_loss_function(config: dict) -> nn.Module:
@@ -161,5 +198,8 @@ def create_loss_function(config: dict) -> nn.Module:
 
         return DistillationLoss(temperature=temperature, alpha=alpha)
 
+    elif loss_type == "cw":
+        return ConfidenceWeightedLoss()
+
     else:
-        raise ValueError(f"Unknown loss type: {loss_type!r}. Supported: 'ce', 'kd'")
+        raise ValueError(f"Unknown loss type: {loss_type!r}. Supported: 'ce', 'kd', 'cw'")

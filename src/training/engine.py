@@ -97,24 +97,16 @@ class TrainingEngine:
         eval_dataloader: Optional[DataLoader] = None,
         eval_fn: Optional[callable] = None,
         checkpoint_dir: Optional[Union[str, Path]] = None,
+        resume_from: Optional[Union[str, Path]] = None,
     ) -> TrainingState:
-        """Run the training loop.
-
-        Args:
-            train_dataloader: DataLoader for training data.
-            num_epochs: Number of training epochs.
-            eval_dataloader: Optional DataLoader for evaluation.
-            eval_fn: Optional function that takes (model, dataloader, device)
-                and returns a dict of metrics.
-            checkpoint_dir: Optional directory to save checkpoints.
-
-        Returns:
-            Final TrainingState.
-        """
+        """Run the training loop."""
         # Setup optimizer
         optimizer = self._create_optimizer()
         total_steps = len(train_dataloader) * num_epochs // self.gradient_accumulation_steps
         scheduler = self._create_scheduler(optimizer, total_steps)
+        
+        if resume_from:
+            self.load_checkpoint(Path(resume_from), optimizer, scheduler)
 
         state = TrainingState()
         self._fire_callbacks("on_train_begin", state)
@@ -147,14 +139,15 @@ class TrainingEngine:
 
             self._fire_callbacks("on_epoch_end", state)
 
-            # Save checkpoint if best model callback says so
+            # Save checkpoints
             if checkpoint_dir:
+                base_dir = Path(checkpoint_dir)
                 for cb in self.callbacks:
                     if isinstance(cb, BestModelCallback) and cb.should_save:
-                        save_student_checkpoint(
-                            self.model, self.tokenizer,
-                            Path(checkpoint_dir) / "best"
-                        )
+                        self._save_checkpoint(base_dir / "best", optimizer, scheduler)
+                
+                self._save_checkpoint(base_dir / f"epoch_{epoch}", optimizer, scheduler)
+                self._save_checkpoint(base_dir / "latest", optimizer, scheduler)
 
             # Early stopping check
             for cb in self.callbacks:
@@ -165,10 +158,7 @@ class TrainingEngine:
 
         # Save final checkpoint
         if checkpoint_dir:
-            save_student_checkpoint(
-                self.model, self.tokenizer,
-                Path(checkpoint_dir) / "final"
-            )
+            self._save_checkpoint(Path(checkpoint_dir) / "final", optimizer, scheduler)
 
         self._fire_callbacks("on_train_end", state)
         return state
@@ -286,3 +276,18 @@ class TrainingEngine:
         """Fire a callback event on all registered callbacks."""
         for callback in self.callbacks:
             getattr(callback, event)(state)
+
+    def _save_checkpoint(self, path: Path, optimizer: torch.optim.Optimizer, scheduler: LambdaLR) -> None:
+        """Save model, tokenizer, and training state."""
+        save_student_checkpoint(self.model, self.tokenizer, path)
+        torch.save(optimizer.state_dict(), path / "optimizer.pt")
+        torch.save(scheduler.state_dict(), path / "scheduler.pt")
+
+    def load_checkpoint(self, path: Path, optimizer: torch.optim.Optimizer, scheduler: LambdaLR) -> None:
+        """Load optimizer and scheduler states from a checkpoint."""
+        opt_path = path / "optimizer.pt"
+        sch_path = path / "scheduler.pt"
+        if opt_path.exists():
+            optimizer.load_state_dict(torch.load(opt_path, map_location=self.device, weights_only=True))
+        if sch_path.exists():
+            scheduler.load_state_dict(torch.load(sch_path, map_location=self.device, weights_only=True))

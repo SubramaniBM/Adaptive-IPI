@@ -101,9 +101,27 @@ def main() -> None:
 
     # Generate report
     experiments_dir = _PROJECT_ROOT / "experiments"
+    
+    # Check for existing
+    exp_dirs = sorted(experiments_dir.glob("exp*"))
+    for e_dir in reversed(exp_dirs):
+        metadata_path = e_dir / "metadata.json"
+        if metadata_path.exists():
+            import json
+            try:
+                with open(metadata_path) as f:
+                    meta = json.load(f)
+                    if (meta.get("phase") == "phase4_analyze" and 
+                        meta.get("config", {}).get("dataset_version") == args.dataset_version):
+                        if (e_dir / "failure_report.json").exists():
+                            logger.info(f"Phase 4 already completed for dataset version {args.dataset_version} in {e_dir}. Skipping.")
+                            sys.exit(0)
+            except:
+                pass
+
     exp_dir = init_experiment(
         experiments_dir,
-        config={"data": data_config, "adaptive": adaptive_config},
+        config={"data": data_config, "adaptive": adaptive_config, "dataset_version": args.dataset_version},
         phase="phase4_analyze",
         description=f"Failure analysis on {args.split} split",
     )

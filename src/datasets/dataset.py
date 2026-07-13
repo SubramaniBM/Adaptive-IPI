@@ -98,6 +98,10 @@ class IPIDataset(Dataset):
         n_matched = self.df["teacher_probs"].notna().sum()
         logger.info(f"  Merged teacher annotations: {n_matched:,}/{after_len:,} samples matched")
 
+        if n_matched < after_len:
+            logger.warning(f"  Dropping {after_len - n_matched} samples with missing teacher annotations.")
+            self.df = self.df[self.df["teacher_probs"].notna()].reset_index(drop=True)
+
         self.has_soft_labels = n_matched > 0
 
     def __len__(self) -> int:

@@ -40,6 +40,7 @@ def run_training(
     experiment_dir: Union[str, Path],
     teacher_annotations_path: Optional[Union[str, Path]] = None,
     eval_fn: Optional[callable] = None,
+    resume_from: Optional[Union[str, Path]] = None,
 ) -> TrainingState:
     """Execute a complete training run.
 
@@ -62,10 +63,17 @@ def run_training(
     set_seed()
     device = get_device()
 
-    # Create model and tokenizer
-    model, tokenizer = create_student(
-        model_id=student_config.get("model_id", "answerdotai/ModernBERT-base"),
-    )
+    # Create or load model and tokenizer
+    if resume_from:
+        from src.models.student import load_student_checkpoint
+        model, tokenizer = load_student_checkpoint(
+            checkpoint_path=resume_from,
+            model_id=student_config.get("model_id", "answerdotai/ModernBERT-base"),
+        )
+    else:
+        model, tokenizer = create_student(
+            model_id=student_config.get("model_id", "answerdotai/ModernBERT-base"),
+        )
 
     # Create datasets
     max_length = student_config.get("max_length", 512)
@@ -109,18 +117,21 @@ def run_training(
 
     # Create callbacks
     checkpoint_dir = get_checkpoint_dir(experiment_dir)
+    monitor_metric = student_config.get("monitor_metric", "f1")
+    mode = "min" if "loss" in monitor_metric else "max"
+    
     callbacks = [
         MetricLoggerCallback(
             log_file=Path(experiment_dir) / "training_log.jsonl"
         ),
         BestModelCallback(
-            monitor=student_config.get("monitor_metric", "f1"),
-            mode="max",
+            monitor=monitor_metric,
+            mode=mode,
         ),
         EarlyStoppingCallback(
-            monitor=student_config.get("monitor_metric", "f1"),
+            monitor=monitor_metric,
             patience=student_config.get("early_stopping_patience", 3),
-            mode="max",
+            mode=mode,
         ),
     ]
 
@@ -144,10 +155,16 @@ def run_training(
         eval_dataloader=eval_dataloader,
         eval_fn=eval_fn,
         checkpoint_dir=checkpoint_dir,
+        resume_from=resume_from,
     )
 
-    # Save final metrics
-    if final_state.eval_metrics:
-        save_metrics(experiment_dir, final_state.eval_metrics)
+    # Save final metrics (pulling from BestModelCallback to ensure they match the saved checkpoint)
+    best_metrics = final_state.eval_metrics
+    for cb in callbacks:
+        if isinstance(cb, BestModelCallback) and cb.best_metrics:
+            best_metrics = cb.best_metrics
+
+    if best_metrics:
+        save_metrics(experiment_dir, best_metrics)
 
     return final_state

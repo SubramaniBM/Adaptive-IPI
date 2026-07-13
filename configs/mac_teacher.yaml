@@ -1,0 +1,11 @@
+model_id: "qwen2.5:7b"
+backend: "ollama"
+backend_kwargs:
+  base_url: "http://localhost:11434/api/chat"
+
+temperature: 0.0
+max_tokens: 512
+batch_size: 1
+
+annotations_path: "data/processed/dataset_v1/teacher_annotations.jsonl"
+system_prompt: null

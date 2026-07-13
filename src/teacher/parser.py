@@ -39,20 +39,51 @@ def parse_teacher_response(
     # Try to extract JSON from the response
     json_str = _extract_json(response_text)
     if json_str is None:
-        logger.warning(
-            f"  [Parser] Could not extract JSON from response for sample {sample_id}"
-        )
-        return None
+        logger.warning(f"  [Parser] Could not extract JSON from response for sample {sample_id}")
+        raise ValueError("Could not extract JSON from response")
 
     try:
         data = json.loads(json_str)
     except json.JSONDecodeError as exc:
-        logger.warning(
-            f"  [Parser] Invalid JSON for sample {sample_id}: {exc}"
-        )
-        return None
+        logger.warning(f"  [Parser] Invalid JSON for sample {sample_id}, attempting repair: {exc}")
+        repaired_str = _repair_json(json_str)
+        try:
+            data = json.loads(repaired_str)
+            logger.info(f"  [Parser] Successfully repaired JSON for sample {sample_id}")
+        except json.JSONDecodeError:
+            logger.error(f"  [Parser] Repair failed for sample {sample_id}")
+            raise ValueError(f"Unrecoverable JSON error: {exc}") # Raise so annotator can catch it and retry/log
 
     return _build_annotation(sample_id, data)
+
+
+def _repair_json(text: str) -> str:
+    """Attempt lightweight repair of malformed JSON strings.
+    
+    Fixes common LLM output errors like trailing commas or missing braces.
+    """
+    text = text.strip()
+    
+    # Remove trailing commas before closing braces
+    text = re.sub(r',\s*\}', '}', text)
+    text = re.sub(r',\s*\]', ']', text)
+    
+    # Ensure it starts and ends with braces
+    if not text.startswith('{'):
+        idx = text.find('{')
+        if idx != -1:
+            text = text[idx:]
+        else:
+            text = '{' + text
+            
+    if not text.endswith('}'):
+        idx = text.rfind('}')
+        if idx != -1:
+            text = text[:idx+1]
+        else:
+            text = text + '}'
+            
+    return text
 
 
 def _extract_json(text: str) -> Optional[str]:
@@ -108,11 +139,11 @@ def _build_annotation(
     prediction = data.get("prediction")
     if prediction is None:
         logger.warning(f"  [Parser] Missing 'prediction' for sample {sample_id}")
-        return None
+        raise ValueError("Missing 'prediction' field")
     prediction = int(prediction)
     if prediction not in (0, 1):
         logger.warning(f"  [Parser] Invalid prediction value {prediction} for sample {sample_id}")
-        return None
+        raise ValueError(f"Invalid prediction value {prediction}")
 
     # Extract confidence
     confidence = data.get("confidence", 0.5)

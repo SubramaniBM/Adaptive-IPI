@@ -72,7 +72,8 @@ def main() -> None:
     data_config = load_config(args.data_config)
     eval_config = load_config(args.eval_config)
     set_seed(data_config.get("seed", 42))
-    device = get_device()
+    import torch
+    device = torch.device('cpu')
 
     logger.info("━" * 60)
     logger.info("PHASE 7: Final Evaluation")

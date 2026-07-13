@@ -90,7 +90,7 @@ def main() -> None:
         "annotations_path", "data/processed/teacher_annotations.jsonl"
     )
     annotator = create_annotator(teacher_config, output_path)
-    annotations = annotator.annotate(train_df, resume=args.resume)
+    annotations = annotator.annotate(train_df, resume=True)
 
     logger.info("━" * 60)
     logger.info(f"Phase 2 complete. {len(annotations):,} annotations saved to {output_path}")
