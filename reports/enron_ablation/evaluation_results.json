@@ -1,0 +1,176 @@
+{
+  "Baseline": {
+    "BIPIA": {
+      "accuracy": 0.9451951003914636,
+      "precision": 0.9940500899405009,
+      "recall": 0.9483828382838284,
+      "f1": 0.970679637886772,
+      "auroc": 0.9731525827001304,
+      "auprc": 0.9986831722245373,
+      "ece": 0.08743863819915697,
+      "confusion_matrix": [
+        [
+          301,
+          43
+        ],
+        [
+          391,
+          7184
+        ]
+      ]
+    },
+    "Handcrafted": {
+      "false_positive_rate": 0.44,
+      "avg_fp_confidence": 0.6222552061080933
+    },
+    "EnronHeldout": {
+      "false_positive_rate": 0.9881081081081081,
+      "avg_fp_confidence": 0.8588729500770569
+    }
+  },
+  "Enron1000": {
+    "BIPIA": {
+      "accuracy": 0.9653996716757166,
+      "precision": 0.9956551255940258,
+      "recall": 0.9680528052805281,
+      "f1": 0.9816599732262383,
+      "auroc": 0.9800909509555606,
+      "auprc": 0.9990817423105898,
+      "ece": 0.11929407999181042,
+      "confusion_matrix": [
+        [
+          312,
+          32
+        ],
+        [
+          242,
+          7333
+        ]
+      ]
+    },
+    "Handcrafted": {
+      "false_positive_rate": 0.36666666666666664,
+      "avg_fp_confidence": 0.6480704545974731
+    },
+    "EnronHeldout": {
+      "false_positive_rate": 0.0,
+      "avg_fp_confidence": 0.0
+    }
+  },
+  "Enron1000_seed43": {
+    "BIPIA": {
+      "accuracy": 0.9647682788230837,
+      "precision": 0.9971381847914963,
+      "recall": 0.9659405940594059,
+      "f1": 0.9812914906457453,
+      "auroc": 0.9870496584542175,
+      "auprc": 0.9994215189782456,
+      "ece": 0.12411305368932635,
+      "confusion_matrix": [
+        [
+          323,
+          21
+        ],
+        [
+          258,
+          7317
+        ]
+      ]
+    },
+    "Handcrafted": {
+      "false_positive_rate": 0.45666666666666667,
+      "avg_fp_confidence": 0.6738405227661133
+    },
+    "EnronHeldout": {
+      "false_positive_rate": 0.0,
+      "avg_fp_confidence": 0.0
+    }
+  },
+  "Enron250": {
+    "BIPIA": {
+      "accuracy": 0.9621164288420255,
+      "precision": 0.9956397329336422,
+      "recall": 0.9646204620462047,
+      "f1": 0.9798846721201555,
+      "auroc": 0.9828628444239773,
+      "auprc": 0.9992062437597612,
+      "ece": 0.14862193429330064,
+      "confusion_matrix": [
+        [
+          312,
+          32
+        ],
+        [
+          268,
+          7307
+        ]
+      ]
+    },
+    "Handcrafted": {
+      "false_positive_rate": 0.38,
+      "avg_fp_confidence": 0.622056245803833
+    },
+    "EnronHeldout": {
+      "false_positive_rate": 0.001081081081081081,
+      "avg_fp_confidence": 0.5385428071022034
+    }
+  },
+  "Enron500": {
+    "BIPIA": {
+      "accuracy": 0.9648945573936103,
+      "precision": 0.9955181311965231,
+      "recall": 0.9676567656765677,
+      "f1": 0.9813897442763422,
+      "auroc": 0.9892436104075524,
+      "auprc": 0.9995047184363406,
+      "ece": 0.1216684953253262,
+      "confusion_matrix": [
+        [
+          311,
+          33
+        ],
+        [
+          245,
+          7330
+        ]
+      ]
+    },
+    "Handcrafted": {
+      "false_positive_rate": 0.5833333333333334,
+      "avg_fp_confidence": 0.685886800289154
+    },
+    "EnronHeldout": {
+      "false_positive_rate": 0.0,
+      "avg_fp_confidence": 0.0
+    }
+  },
+  "Enron1000_seed44": {
+    "BIPIA": {
+      "accuracy": 0.948983457507261,
+      "precision": 0.9970885900457507,
+      "recall": 0.9494389438943894,
+      "f1": 0.9726805517987558,
+      "auroc": 0.979699132703968,
+      "auprc": 0.9990377957831349,
+      "ece": 0.16527528957159088,
+      "confusion_matrix": [
+        [
+          323,
+          21
+        ],
+        [
+          383,
+          7192
+        ]
+      ]
+    },
+    "Handcrafted": {
+      "false_positive_rate": 0.3466666666666667,
+      "avg_fp_confidence": 0.6128221154212952
+    },
+    "EnronHeldout": {
+      "false_positive_rate": 0.0,
+      "avg_fp_confidence": 0.0
+    }
+  }
+}

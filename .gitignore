@@ -36,3 +36,7 @@ data/processed/dataset_v[1-9]*/
 data/processed/teacher_annotations.jsonl
 reports/ablation_study/
 reports/post_experiment_analysis/
+demo/models/**/*.safetensors
+demo/models/**/*.pt
+demo/models/**/*.bin
+demo/models/**/*.msgpack

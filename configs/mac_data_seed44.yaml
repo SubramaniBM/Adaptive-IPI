@@ -1,0 +1,4 @@
+raw_dir: "data/raw"
+processed_dir: "data/processed"
+seed: 44
+teacher_annotations_path: "data/processed/dataset_v0/teacher_annotations.jsonl"

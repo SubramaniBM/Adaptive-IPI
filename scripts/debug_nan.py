@@ -9,40 +9,44 @@ sys.path.insert(0, str(_PROJECT_ROOT))
 
 from src.datasets.dataset import IPIDataset
 from src.models.student import create_student
+from src.training.losses import DistillationLoss
 
 def main():
+    device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
     model, tokenizer = create_student("answerdotai/ModernBERT-base")
+    model.to(device)
+    
     dataset = IPIDataset(
-        data_path=_PROJECT_ROOT / "data/processed/dataset_v1/train.csv",
+        data_path=_PROJECT_ROOT / "data/processed/dataset_v2/train.csv",
         tokenizer=tokenizer,
         max_length=512,
         teacher_annotations_path=_PROJECT_ROOT / "data/processed/teacher_annotations.jsonl"
     )
     dataloader = DataLoader(dataset, batch_size=16, shuffle=False)
     
+    loss_fn = DistillationLoss(temperature=2.0, alpha=0.5)
+    
+    print("Testing forward passes to isolate NaN...")
     for i, batch in enumerate(dataloader):
-        t_probs = batch.get("teacher_probs")
-        if t_probs is not None:
-            if torch.isnan(t_probs).any():
-                print(f"Batch {i} has NaN in teacher_probs!")
-                print(t_probs)
+        input_ids = batch["input_ids"].to(device)
+        attention_mask = batch["attention_mask"].to(device)
+        labels = batch["labels"].to(device)
+        t_probs = batch["teacher_probs"].to(device)
+        
+        with torch.no_grad():
+            outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+            logits = outputs.logits
             
-            # Check if any probability is outside [0, 1]
-            if (t_probs < 0).any() or (t_probs > 1).any():
-                print(f"Batch {i} has out of bounds teacher_probs!")
-                print(t_probs)
+            if torch.isnan(logits).any():
+                print(f"Batch {i} generated NaN logits!")
+                return
                 
-            # Simulate what happens in KD loss
-            t_logits = torch.log(t_probs.clamp(min=1e-8))
-            if torch.isnan(t_logits).any():
-                print(f"Batch {i} has NaN in teacher_logits!")
-                print(t_logits)
+            loss = loss_fn(student_logits=logits, labels=labels, teacher_probs=t_probs)
+            if torch.isnan(loss):
+                print(f"Batch {i} generated NaN loss!")
+                return
                 
-            soft_t = F.softmax(t_logits / 4.0, dim=-1)
-            if torch.isnan(soft_t).any():
-                print(f"Batch {i} has NaN in soft_teacher!")
-                
-    print("Debug complete.")
+    print("No NaNs detected in forward pass. Must be an optimizer/LR issue.")
 
 if __name__ == "__main__":
     main()

@@ -62,12 +62,12 @@ def main():
     # 1. Load Models and Run Inference
     # ---------------------------------------------------------
     print("Loading V0 model...")
-    v0_checkpoint = _PROJECT_ROOT / "outputs/mac_experiments/exp003/checkpoint/best"
+    v0_checkpoint = _PROJECT_ROOT / "outputs/mac_experiments/exp008/checkpoint/best"
     v0_model, tokenizer = load_student_checkpoint(v0_checkpoint)
     v0_model = v0_model.to(device)
     
     print("Loading V1 model...")
-    v1_checkpoint = _PROJECT_ROOT / "outputs/mac_experiments/exp004/checkpoint/best"
+    v1_checkpoint = _PROJECT_ROOT / "outputs/mac_experiments/exp009/checkpoint/best"
     v1_model, _ = load_student_checkpoint(v1_checkpoint)
     v1_model = v1_model.to(device)
     

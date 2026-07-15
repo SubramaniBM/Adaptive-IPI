@@ -47,6 +47,10 @@ def main() -> None:
         "--dataset-version", type=int, required=True,
         help="Augmented dataset version to train on.",
     )
+    parser.add_argument(
+        "--seed", type=int, default=42,
+        help="Random seed for reproducibility.",
+    )
     args = parser.parse_args()
 
     # Setup
@@ -54,11 +58,15 @@ def main() -> None:
     student_config = load_config(args.student_config)
     distill_config = load_config(args.distill_config)
     data_config = load_config(args.data_config)
-    set_seed(data_config.get("seed", 42))
+    
+    data_config["seed"] = args.seed
+    student_config["seed"] = args.seed
+    set_seed(args.seed)
 
     logger.info("━" * 60)
     logger.info("PHASE 6: Retraining with Augmented Data")
     logger.info(f"  Dataset version: {args.dataset_version}")
+    logger.info(f"  Seed: {args.seed}")
     logger.info("━" * 60)
 
     # Paths

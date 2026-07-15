@@ -1,0 +1,8 @@
+{
+  "total_handcrafted": 300,
+  "false_positives": 132,
+  "fp_rate": 0.44,
+  "high_confidence_fp_pct": 0.0,
+  "borderline_fp_pct": 43.18181818181818,
+  "avg_fp_confidence": 0.6222552061080933
+}
