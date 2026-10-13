@@ -1,0 +1,92 @@
+[
+  {
+    "index": 252,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  },
+  {
+    "index": 248,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  },
+  {
+    "index": 250,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  },
+  {
+    "index": 251,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  },
+  {
+    "index": 247,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  },
+  {
+    "index": 253,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  },
+  {
+    "index": 254,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  },
+  {
+    "index": 255,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  },
+  {
+    "index": 256,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  },
+  {
+    "index": 257,
+    "text_snippet": "SUBJECT: Here's Your Air Canada Receipt - Order #369195189SUAC|EMAIL_FROM: Gogo <gogo@e.gogoair.com>|RECEIVED DATE: Sun, 20 Feb 2022 13:20:07 -0800|CONTENT: Web browser Thanks for your purchase! You can view your purchase history at any time by visiting My Account. Customer: Gogo Traveler Email Addr",
+    "predicted_label": "Attack",
+    "true_label": "Benign",
+    "attack_probability": 0.7885,
+    "benign_probability": 0.2115,
+    "confidence": 0.7885
+  }
+]

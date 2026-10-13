@@ -1,0 +1,30 @@
+{
+  "V0_Static_KD": {
+    "checkpoint": "outputs/mac_experiments/exp009/checkpoint/best",
+    "dataset_trained_on": "dataset_v1 (BIPIA + generated benign, no curriculum hard-negatives)",
+    "description": "Static teacher-guided KD, no adaptive refinement, no benign expansion",
+    "BIPIA": {
+      "accuracy": 0.945195,
+      "precision": 0.99405,
+      "recall": 0.948383,
+      "f1": 0.97068,
+      "auroc": 0.973153,
+      "auprc": 0.998683,
+      "ece": 0.08743863819915697,
+      "confusion_matrix": {
+        "tn": 301,
+        "fp": 43,
+        "fn": 391,
+        "tp": 7184
+      }
+    },
+    "Handcrafted": {
+      "false_positive_rate": 0.44,
+      "avg_fp_confidence": 0.6222552061080933
+    },
+    "EnronHeldout": {
+      "false_positive_rate": 0.9881081081081081,
+      "avg_fp_confidence": 0.8588729500770569
+    }
+  }
+}

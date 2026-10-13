@@ -6,6 +6,7 @@ from typing import List, Dict, Optional
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import torch
 import torch.nn.functional as F
@@ -16,7 +17,12 @@ from captum.attr import LayerIntegratedGradients
 # Configuration
 # ---------------------------------------------------------
 MODEL_PATH = os.getenv("MODEL_PATH", "../models/adaptive_ipi_model")
-DEVICE = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+if torch.cuda.is_available():
+    DEVICE = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    DEVICE = torch.device("mps")
+else:
+    DEVICE = torch.device("cpu")
 
 # Global variables to hold the loaded model and tokenizer
 model = None
@@ -178,3 +184,12 @@ async def predict(req: PredictRequest):
         reason=final_reason,
         attributions=attributions_list
     )
+
+# ---------------------------------------------------------
+# Static Frontend Mounting
+# ---------------------------------------------------------
+# Determine if frontend static files exist (for Docker deployment)
+frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend", "dist")
+if os.path.exists(frontend_path):
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+

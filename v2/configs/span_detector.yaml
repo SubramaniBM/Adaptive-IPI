@@ -1,0 +1,33 @@
+model:
+  model_id: "answerdotai/ModernBERT-base"
+  num_labels: 3
+  max_length: 512
+  dropout: 0.1
+
+data:
+  raw_dir: "data/processed/dataset_v0"
+  output_dir: "v2/data/processed"
+  batch_size: 8
+  eval_batch_size: 16
+  num_workers: 0
+
+training:
+  epochs: 3
+  learning_rate: 3.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  seed: 42
+  gradient_accumulation_steps: 2
+  logging_steps: 25
+  eval_steps: 100
+  save_dir: "v2/checkpoints/span_modernbert"
+
+labels:
+  id2label:
+    0: "O"
+    1: "B-INJECTION"
+    2: "I-INJECTION"
+  label2id:
+    "O": 0
+    "B-INJECTION": 1
+    "I-INJECTION": 2

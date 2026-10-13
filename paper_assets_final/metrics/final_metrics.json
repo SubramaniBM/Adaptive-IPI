@@ -1,0 +1,31 @@
+{
+  "model": "Enron1000 (Seed 42) \u2014 exp050",
+  "BIPIA": {
+    "accuracy": 0.9653996716757166,
+    "precision": 0.9956551255940258,
+    "recall": 0.9680528052805281,
+    "f1": 0.9816599732262383,
+    "auroc": 0.9800909509555606,
+    "auprc": 0.9990817423105898,
+    "ece": 0.11929407999181042,
+    "confusion_matrix": [
+      [
+        312,
+        32
+      ],
+      [
+        242,
+        7333
+      ]
+    ]
+  },
+  "Handcrafted_OOD": {
+    "false_positive_rate": 0.36666666666666664,
+    "avg_fp_confidence": 0.6480704545974731
+  },
+  "Enron_OOD": {
+    "false_positive_rate": 0.0,
+    "avg_fp_confidence": 0.0
+  },
+  "source_file": "reports/enron_ablation/evaluation_results.json"
+}

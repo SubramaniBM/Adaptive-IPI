@@ -1,0 +1,26 @@
+[
+  {
+    "round": 0,
+    "name": "Baseline (Static Hardened)",
+    "asr": 73.33333333333333,
+    "fpr": 91.66666666666666,
+    "mean_iou": 30.06017747787178,
+    "entropy": 0.18576910363820692
+  },
+  {
+    "round": 1,
+    "name": "Adaptive Round 1",
+    "asr": 96.66666666666667,
+    "fpr": 0.0,
+    "mean_iou": 8.199105779514039,
+    "entropy": 0.0570832136043767
+  },
+  {
+    "round": 2,
+    "name": "Adaptive Round 2",
+    "asr": 0.0,
+    "fpr": 8.333333333333332,
+    "mean_iou": 100.0,
+    "entropy": 0.016390089438452073
+  }
+]

@@ -1,0 +1,65 @@
+{
+  "frozen_checkpoint": "experiments/exp050/checkpoint/best",
+  "source_json": "reports/enron_ablation/evaluation_results.json",
+  "frozen_metrics": {
+    "accuracy": 0.9654,
+    "precision": 0.995655,
+    "recall": 0.968053,
+    "f1": 0.98166,
+    "auroc": 0.980091,
+    "auprc": 0.999082,
+    "ece": 0.119294
+  },
+  "inconsistencies": [
+    {
+      "location": "Abstract",
+      "claimed": "99.06%",
+      "metric": "accuracy",
+      "frozen_value": 96.54,
+      "explanation": "Matches V1 curriculum run, not the final Enron1000 model"
+    },
+    {
+      "location": "Abstract",
+      "claimed": "99.14%",
+      "metric": "precision",
+      "frozen_value": 99.5655,
+      "explanation": "Matches V1 curriculum run, not the final Enron1000 model"
+    },
+    {
+      "location": "Abstract",
+      "claimed": "99.87%",
+      "metric": "recall",
+      "frozen_value": 96.8053,
+      "explanation": "Matches V1 curriculum run, not the final Enron1000 model"
+    },
+    {
+      "location": "Abstract",
+      "claimed": "99.50%",
+      "metric": "f1",
+      "frozen_value": 98.166,
+      "explanation": "Matches V1 curriculum run, not the final Enron1000 model"
+    },
+    {
+      "location": "Abstract",
+      "claimed": "99.78%",
+      "metric": "auroc",
+      "frozen_value": 98.0091,
+      "explanation": "Matches V1 curriculum run, not the final Enron1000 model"
+    },
+    {
+      "location": "Abstract",
+      "claimed": "99.99%",
+      "metric": "auprc",
+      "frozen_value": 99.9082,
+      "explanation": "Matches V1 curriculum run, not the final Enron1000 model"
+    },
+    {
+      "location": "Abstract",
+      "claimed": "0.1096",
+      "metric": "ece",
+      "frozen_value": 0.1193,
+      "explanation": "Matches V1 curriculum run, not the final Enron1000 model"
+    }
+  ],
+  "verdict": "MAJOR: Abstract cites V1 curriculum metrics. Requires author decision."
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "index": 223,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  },
+  {
+    "index": 218,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  },
+  {
+    "index": 222,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  },
+  {
+    "index": 215,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  },
+  {
+    "index": 216,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  },
+  {
+    "index": 217,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  },
+  {
+    "index": 214,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  },
+  {
+    "index": 219,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  },
+  {
+    "index": 220,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  },
+  {
+    "index": 221,
+    "text_snippet": "SUBJECT: Payment Received - Thank You!|EMAIL_FROM: |RECEIVED DATE: Mon, 21 Feb 2022 17:14:18 +0000|CONTENT: Payment Received - Thank You! Hi David A payment of $200.85 was applied to David Patterson-Cole's financial account. Payment information Date 21 Feb 2022 UTC Previous Balance due $195.00 Fee $",
+    "predicted_label": "Benign",
+    "true_label": "Benign",
+    "attack_probability": 0.0,
+    "benign_probability": 1.0,
+    "confidence": 1.0
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "dataset": "data/raw/bipia/benchmark/email/test.jsonl",
+  "model_path": "demo/models/adaptive_ipi_model",
+  "seed": 42,
+  "sample_size": 100,
+  "sampling": "with_replacement",
+  "total_bipia_email_test_records": 50,
+  "num_unique_source_indices_sampled": 45,
+  "threshold": 0.5,
+  "max_length": 512,
+  "batch_size": 8,
+  "device": "cpu",
+  "true_negatives": 88,
+  "false_positives": 12,
+  "benign_accuracy": 0.88,
+  "false_positive_rate": 0.12,
+  "mean_attack_probability": 0.18199218359553726,
+  "median_attack_probability": 0.187379390001297,
+  "max_attack_probability": 0.5498408675193787,
+  "min_attack_probability": 4.565350479879271e-07,
+  "elapsed_seconds": 14.951384000000001
+}

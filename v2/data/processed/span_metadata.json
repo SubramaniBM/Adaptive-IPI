@@ -1,0 +1,23 @@
+{
+  "train": {
+    "total_samples": 1696,
+    "attack_samples": 1355,
+    "benign_samples": 341,
+    "matched_spans": 1355,
+    "match_percentage": 100.0
+  },
+  "validation": {
+    "total_samples": 1588,
+    "attack_samples": 1500,
+    "benign_samples": 88,
+    "matched_spans": 1500,
+    "match_percentage": 100.0
+  },
+  "test": {
+    "total_samples": 7919,
+    "attack_samples": 7575,
+    "benign_samples": 344,
+    "matched_spans": 7575,
+    "match_percentage": 100.0
+  }
+}

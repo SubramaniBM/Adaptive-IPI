@@ -1,0 +1,57 @@
+[
+  {
+    "sentence_snippet": "Large Language Models (LLMs) are increasingly deployed as autonomous agents",
+    "suggested_reference_category": "Survey/Overview of LLM deployment",
+    "priority": "HIGH"
+  },
+  {
+    "sentence_snippet": "Indirect Prompt Injection (IPI) attacks, in which malicious instructions embedded within retrieved",
+    "suggested_reference_category": "IPI definition / foundational paper",
+    "priority": "HIGH"
+  },
+  {
+    "sentence_snippet": "Recent benchmarks, including BIPIA, have provided standardized evaluation protocols",
+    "suggested_reference_category": "BIPIA benchmark paper",
+    "priority": "HIGH"
+  },
+  {
+    "sentence_snippet": "Knowledge Distillation (KD) enables compact student models to inherit knowledge from larger teacher models",
+    "suggested_reference_category": "Hinton et al. (2015) KD foundational paper",
+    "priority": "HIGH"
+  },
+  {
+    "sentence_snippet": "The teacher model is Qwen, used exclusively during offline training",
+    "suggested_reference_category": "Qwen model technical report",
+    "priority": "HIGH"
+  },
+  {
+    "sentence_snippet": "the student model, implemented using ModernBERT",
+    "suggested_reference_category": "ModernBERT technical report / paper",
+    "priority": "HIGH"
+  },
+  {
+    "sentence_snippet": "Large-LLM-based defenses provide strong reasoning capability but incur substantial computational cost",
+    "suggested_reference_category": "Lightweight vs. large LLM security comparison paper",
+    "priority": "MEDIUM"
+  },
+  {
+    "sentence_snippet": "Prior work has demonstrated KD's effectiveness across natural language understanding",
+    "suggested_reference_category": "NLU KD survey / representative paper",
+    "priority": "MEDIUM"
+  },
+  {
+    "sentence_snippet": "AI Email Question Answering (Email QA) assistants have emerged as a particularly valuable use case",
+    "suggested_reference_category": "Email QA / RAG assistant papers",
+    "priority": "MEDIUM"
+  },
+  {
+    "sentence_snippet": "integrate with complementary defenses such as intent reconstruction, retrieval verification",
+    "suggested_reference_category": "Intent reconstruction / retrieval verification papers",
+    "priority": "LOW"
+  },
+  {
+    "sentence_snippet": "Apple Silicon using the Metal Performance Shaders (MPS) backend",
+    "suggested_reference_category": "No citation needed \u2014 implementation detail",
+    "priority": "NONE"
+  }
+]
